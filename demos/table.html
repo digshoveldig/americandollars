@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Table &middot; demos &middot; Justin Hantz</title>
+<style>
+/* Five plain-HTML directions, one per view. Browser-default faces on purpose; each view commits to one light look. */
+:root{
+  color-scheme:light;
+  --times:"Times New Roman",Times,serif;
+  --mono:"Courier New",Courier,ui-monospace,monospace;
+  --link:#0000ee; --visited:#551a8b; --hi:#ffff66; --ink:#000;
+  --rule:#999; --win:#c0c0c0; --paper:#faf8f2;
+}
+html{background:#fff}
+body{margin:0;background:#fff;color:var(--ink);font-family:var(--times);font-size:16px;line-height:1.35}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--link)}
+:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+.view[hidden]{display:none!important}
+.pad{padding-block:calc(18px + env(safe-area-inset-top,0px)) 110px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sc{font-variant:small-caps;letter-spacing:.06em;text-transform:lowercase}
+
+.switch{position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;display:flex;gap:2px;padding:3px;background:var(--win);
+  border:2px solid;border-color:#fff #555 #555 #fff;font:13px Arial,Helvetica,sans-serif;max-width:calc(100vw - 24px)}
+.switch button{font:inherit;color:#000;background:var(--win);border:2px solid;border-color:#fff #555 #555 #fff;padding:6px 12px;min-height:36px;cursor:pointer;white-space:nowrap}
+.switch button[aria-pressed="true"]{border-color:#555 #fff #fff #555;background:#d6d6d6}
+@media (max-width:520px){.switch .lb{display:none}.switch button{padding:6px 11px}}
+.toast{position:fixed;left:50%;bottom:calc(66px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:70;background:#ffffe1;color:#000;border:1px solid #000;padding:8px 12px;font:14px var(--times);max-width:calc(100vw - 32px)}
+
+/* 1 TUNED INDEX */
+#v1 .wrap{max-width:1080px;margin:0 auto}
+#v1 h1{font-size:34px;font-weight:400;margin:28px 0 6px;letter-spacing:-.01em}
+#v1 .sub{margin:0;font-size:17px}
+#v1 .note{margin:22px 0 0;font-style:italic;max-width:56ch}
+#v1 hr{border:0;border-top:1px solid #000;margin:30px 0}
+#v1 .row{display:flex;flex-wrap:wrap;gap:40px 34px;align-items:flex-end}
+#v1 .it{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink)}
+#v1 .it img{height:210px;width:auto;border:1px solid #000}
+#v1 .it .f{font-size:13px}
+#v1 .it .t{color:var(--link);text-decoration:underline;font-size:19px}
+#v1 .it .l{font-style:italic;font-size:15px;max-width:22ch}
+#v1 .it:hover img{outline:4px solid var(--hi);outline-offset:0}
+#v1 mark{background:var(--hi);color:#000;padding:0 2px}
+#v1 .foot{font-size:13px;margin-top:40px}
+@media (max-width:640px){#v1 .row{display:grid;grid-template-columns:1fr 1fr;gap:28px 16px;align-items:start}#v1 .it img{height:auto;width:100%}}
+
+/* 2 FRAMES */
+#v2{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
+#v2 .left{border-right:3px solid;border-color:transparent #808080 transparent transparent;box-shadow:inset -1px 0 0 #fff,1px 0 0 #dfdfdf;background:#f2f2ee;
+  padding-block:calc(18px + env(safe-area-inset-top,0px)) 90px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:16px;position:sticky;top:0;height:100vh;box-sizing:border-box;overflow:auto}
+#v2 .left h1{font-size:22px;font-weight:400;margin:6px 0 4px}
+#v2 .left p{font-size:13px;margin:0 0 18px}
+#v2 .left ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+#v2 .left button{font:17px var(--times);color:var(--link);text-decoration:underline;background:none;border:0;padding:2px 0;text-align:left;cursor:pointer}
+#v2 .left button[aria-current="true"]{color:#000;text-decoration:none;background:var(--hi)}
+#v2 .left .f{display:block;font-size:12px;color:#444;text-decoration:none}
+#v2 .right{padding-block:calc(24px + env(safe-area-inset-top,0px)) 110px;padding-left:clamp(16px,4vw,48px);padding-right:max(16px,env(safe-area-inset-right,0px));min-width:0}
+#v2 .right h2{font-size:40px;font-weight:400;margin:0 0 4px}
+#v2 .right .k{font-size:14px;margin:0 0 18px}
+#v2 .right .imgs{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start}
+#v2 .right .imgs img{height:210px;width:auto}
+#v2 .right p{max-width:60ch}
+#v2 .right form{margin-top:18px;font-size:15px}
+@media (max-width:700px){#v2{grid-template-columns:minmax(0,1fr)}#v2 .left{position:static;height:auto;border-right:0;border-bottom:3px solid #808080;padding-bottom:16px;padding-right:max(16px,env(safe-area-inset-right,0px))}
+  #v2 .left ul{flex-direction:row;flex-wrap:wrap;gap:8px 16px}#v2 .left .f{display:none}#v2 .right .imgs img{height:170px}}
+
+/* 3 TABLE */
+#v3{background:#fff}
+#v3 h1{font-size:28px;font-weight:400;margin:14px 0 4px}
+#v3 .sub{margin:0 0 20px;font-size:15px}
+#v3 .tw{overflow-x:auto;max-width:100%}
+#v3 table{border-collapse:collapse;width:100%;max-width:1200px;font-size:15px}
+#v3 th,#v3 td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+#v3 th{background:#e4e4e4;font-weight:400;font-size:13px}
+#v3 td.img{width:76px}
+#v3 td.img img{width:72px;height:auto}
+#v3 td.pg{font-variant-numeric:tabular-nums;white-space:nowrap}
+#v3 tbody tr{cursor:pointer}
+#v3 tbody tr:hover,#v3 tbody tr:focus-within{background:var(--hi)}
+#v3 .ttl{color:var(--link);text-decoration:underline;font:inherit;font-size:17px;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+#v3 .foot{font-size:13px;margin-top:18px}
+@media (max-width:700px){
+  #v3 thead{display:none}
+  #v3 table,#v3 tbody,#v3 tr,#v3 td{display:block;width:auto}
+  #v3 tr{display:grid;grid-template-columns:72px minmax(0,1fr);gap:4px 12px;border:1px solid var(--rule);padding:10px;margin-bottom:12px}
+  #v3 td{border:0;padding:0}
+  #v3 td.img{grid-row:span 4;width:auto}
+}
+
+/* 4 README */
+#v4{font-family:var(--mono);font-size:15px;line-height:1.45;background:#fff}
+#v4 .col{max-width:74ch}
+#v4 pre{font:inherit;margin:0;white-space:pre-wrap}
+#v4 h1,#v4 h2{font:inherit;font-weight:700;margin:0}
+#v4 .rule{margin:14px 0;overflow:hidden;white-space:nowrap}
+#v4 a,#v4 button.lk{color:var(--link);text-decoration:underline;font:inherit;background:none;border:0;padding:0;cursor:pointer}
+#v4 .proj{margin:6px 0 26px}
+#v4 .proj img{width:min(260px,70vw);margin:12px 0;border:1px solid #000}
+#v4 .proj .two{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start}
+#v4 .proj .two img{width:min(200px,42vw)}
+#v4 .dots{display:flex;gap:8px}
+#v4 .dots span:nth-child(2){flex:1;overflow:hidden;white-space:nowrap;color:#777}
+
+/* 5 BIG BLUE */
+#v5{background:var(--paper)}
+#v5 .top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:15px;margin-bottom:24px}
+#v5 .top b{font-weight:400;font-size:18px}
+#v5 .bb{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 28px;align-items:end;border-top:1px solid #000;padding:20px 0 26px}
+#v5 .bb button.t{font:400 clamp(44px,9.5vw,140px)/.9 var(--times);color:var(--link);text-decoration:underline;text-decoration-thickness:.04em;text-underline-offset:.08em;background:none;border:0;padding:0;text-align:left;cursor:pointer;letter-spacing:-.02em}
+#v5 .bb.seen button.t{color:var(--visited)}
+#v5 .bb .m{grid-column:1;font-size:16px;margin-top:-4px}
+#v5 .bb .m i{font-size:18px}
+#v5 .bb img{grid-column:2;grid-row:1/span 2;height:clamp(140px,18vw,250px);width:auto}
+#v5 .bb .seenl{font-size:13px;color:var(--visited)}
+#v5 .foot{font-size:14px;border-top:1px solid #000;padding-top:14px}
+#v5 .foot button{font:inherit;color:var(--link);text-decoration:underline;background:none;border:0;padding:0;cursor:pointer}
+@media (max-width:640px){#v5 .bb{grid-template-columns:minmax(0,1fr)}#v5 .bb img{grid-column:1;grid-row:auto;height:auto;width:62%}}
+
+.backlink{position:fixed;left:max(10px,env(safe-area-inset-left,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:90;
+  font:14px "Times New Roman",Times,serif;background:#fff;color:#0000ee;border:1px solid #000;padding:6px 10px;text-decoration:underline}
+body{background:#fff}
+</style>
+</head>
+<body>
+<main class="view pad" id="v3" aria-label="Table"></main>
+<a class="backlink" href="./">&larr; all demos</a>
+<script>
+const ME={name:"Justin Hantz",sub:"writer / director. Los Angeles.",cred:"Developed series with JASH for Hulu, and with Channing Tatum’s Free Association at Lionsgate.",mail:"justinhantz@gmail.com"};
+const P=[
+ {id:"ebg",t:"Everybody’s Bad Guy",f:"Animated series",ff:"Developed with JASH for Hulu",l:"Sympathy for an evil wizard.",pg:"33 pp. (ep. 103)",
+  log:"A sitcom set in the world of a 1980s fantasy-action cartoon, told from the villain’s side. Mordon is an evil warlock who also happens to be an incompetent narcissist. The forces of good stand in his way, but not as much as his own ego.",
+  cr:"Written by Justin Hantz. Created by Justin Hantz & Josh Freydkis.",mat:"Deck + script (ep. 103)",cover:"img/ebg-vhs.webp",imgs:["img/ebg-lineup.webp","img/ebg-mordon.webp"]},
+ {id:"car",t:"Carousel",f:"Feature",ff:"Dallas, November 22–24, 1963",l:"Kennedy is dead; Jack Ruby has a problem.",pg:"103 pp.",
+  log:"Oswald is in Dallas police custody, and Jack Ruby has a problem. Over the next 48 hours, hounded by the police, the mob and the CIA, Ruby looks for any way out of his assignment: killing the president’s assassin.",
+  cr:"Written by Matt Christman, Justin Hantz & Lee Landey.",mat:"Deck + first draft",cover:"img/car-cover.webp",imgs:["img/car-photo.webp","img/car-file.webp"]},
+ {id:"os",t:"Offsite",f:"Feature",ff:"Contained horror, Blumhouse-style",l:"Then he comes home.",pg:"94 pp.",
+  log:"A father and daughter, both environmental activists, head into the Pacific Northwest backcountry. Lost in the woods, they come upon a mysterious mansion, only to discover they’ve landed in the secret playground of a maniacal billionaire. Then he comes home.",
+  cr:"Written by Lee Landey & Justin Hantz.",mat:"Deck + full draft",cover:"img/os-cover.webp",imgs:["img/os-lab.webp"]},
+ {id:"fi",t:"The Fires",f:"Series",ff:"Pilot + pitch, Pittsburgh",l:"Columbo meets Lovecraft in Pittsburgh.",pg:"58 pp. (pilot)",
+  log:"A supernatural detective drama. In present-day Pittsburgh, an unlikely pair of detectives investigate a string of arsons plaguing the rust belt. A classic procedural in the tradition of Columbo, until the cosmic horror of Lovecraft creeps in.",
+  cr:"Written by Lee Landey & Justin Hantz.",mat:"Pitch deck + pilot",cover:"img/fires-cover.webp",imgs:["img/pittsburgh.webp","img/still-street-fire.webp"]}
+];
+const $=s=>document.querySelector(s);
+function toast(t){document.querySelectorAll(".toast").forEach(n=>n.remove());const n=document.createElement("div");n.className="toast";n.setAttribute("role","status");n.textContent=t;document.body.append(n);setTimeout(()=>n.remove(),2200)}
+const SITE={ebg:"ebg",car:"carousel",os:"offsite",fi:"fires"};const openMsg=p=>{location.href="../#"+SITE[p.id]};
+const pw=id=>`<form onsubmit="event.preventDefault();toast('Demo: the real site checks the password here.')"><label for="pw-${id}">password:</label> <input id="pw-${id}" type="password" size="12" autocomplete="off"> <input type="submit" value="Submit"></form>`;
+
+/* 1 */
+if($("#v1"))$("#v1").innerHTML=`<div class="wrap"><h1>${ME.name}</h1><p class="sub">${ME.sub}</p><p class="sub">${ME.cred}</p>
+<p class="note">Everything here is locked. If I sent you this page, I sent you the password. If not, <a href="mailto:${ME.mail}">email me</a>.</p><hr>
+<div class="row">${P.map(p=>`<a class="it" href="#1" data-id="${p.id}"><img src="${p.cover}" alt=""><span class="f sc">${p.f}</span><span class="t">${p.t}</span><span class="l">${p.l}</span>${p.id==="ebg"?'<span class="f"><mark>read this one first</mark></span>':""}</a>`).join("")}</div>
+<hr><p class="foot">${ME.mail}<br>&copy; American Dollars LLC</p></div>`;
+document.querySelectorAll("#v1 .it").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();openMsg(P.find(p=>p.id===a.dataset.id))}));
+
+/* 2 */
+function frame(id){const p=P.find(x=>x.id===id);
+  document.querySelectorAll("#v2 .left button").forEach(b=>b.setAttribute("aria-current",b.dataset.id===id));
+  $("#v2 .right").innerHTML=`<h2>${p.t}</h2><p class="k"><span class="sc">${p.f}</span> &middot; ${p.ff}</p>
+  <div class="imgs"><img src="${p.cover}" alt="">${p.imgs.map(s=>`<img src="${s}" alt="">`).join("")}</div>
+  <p><i>${p.l}</i></p><p>${p.log}</p><p>${p.cr}<br>Script: ${p.pg}</p><p><a href="../#${SITE[p.id]}">Open the project &rarr;</a> <small>(password required)</small></p>`;}
+if($("#v2"))$("#v2").innerHTML=`<div class="left"><h1>${ME.name}</h1><p>${ME.sub}<br>${ME.mail}</p><ul>${P.map(p=>`<li><button data-id="${p.id}">${p.t}<span class="f">${p.f}</span></button></li>`).join("")}</ul></div><div class="right"></div>`;
+document.querySelectorAll("#v2 .left button").forEach(b=>b.addEventListener("click",()=>frame(b.dataset.id)));
+if($("#v2"))frame("ebg");
+
+/* 3 */
+if($("#v3"))$("#v3").innerHTML=`<h1>${ME.name}</h1><p class="sub">${ME.sub} ${ME.cred}</p>
+<div class="tw"><table><thead><tr><th></th><th>Title</th><th>Format</th><th>Logline</th><th>Script</th><th>Materials</th></tr></thead><tbody>
+${P.map(p=>`<tr data-id="${p.id}"><td class="img"><img src="${p.cover}" alt=""></td><td><button class="ttl">${p.t}</button></td><td>${p.f}<br><small>${p.ff}</small></td><td><i>${p.l}</i></td><td class="pg">${p.pg}</td><td>${p.mat}</td></tr>`).join("")}
+</tbody></table></div><p class="foot">Click a row to open it. Everything is locked; passwords by request. ${ME.mail}</p>`;
+document.querySelectorAll("#v3 tbody tr").forEach(r=>r.addEventListener("click",()=>openMsg(P.find(p=>p.id===r.dataset.id))));
+
+/* 4 */
+const RULE="=".repeat(200),DASH="-".repeat(200);
+if($("#v4"))$("#v4").innerHTML=`<div class="col"><h1>JUSTIN HANTZ</h1><pre>${ME.sub}
+${ME.cred}
+contact: <a href="mailto:${ME.mail}">${ME.mail}</a></pre>
+<div class="rule">${RULE}</div><h2>CONTENTS</h2>
+${P.map((p,i)=>`<div class="dots"><span>[${i+1}] <a href="#4" data-go="${p.id}">${p.t}</a></span><span>${".".repeat(200)}</span><span>${p.f.toLowerCase()}</span></div>`).join("")}
+<pre>
+everything below is locked. if i sent you this,
+i sent you the password. if not, ask.</pre>
+${P.map((p,i)=>`<div class="rule">${RULE}</div><div class="proj" id="r-${p.id}"><h2>[${i+1}] ${p.t.toUpperCase()}</h2><pre>${p.f}. ${p.ff}.
+${p.pg}
+
+${p.l}</pre><div class="two"><img src="${p.cover}" alt="">${p.imgs.slice(0,1).map(s=>`<img src="${s}" alt="">`).join("")}</div><pre>${p.log}
+
+${p.cr}</pre><pre>
+&gt; <button class="lk" data-id="${p.id}">open ${p.t.toLowerCase()}</button></pre></div>`).join("")}
+<div class="rule">${DASH}</div><pre>(c) american dollars llc. last updated 11/04/26.</pre></div>`;
+document.querySelectorAll("#v4 [data-go]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();document.getElementById("r-"+a.dataset.go).scrollIntoView({behavior:"smooth"})}));
+document.querySelectorAll("#v4 button.lk").forEach(b=>b.addEventListener("click",()=>openMsg(P.find(p=>p.id===b.dataset.id))));
+
+/* 5 */
+let seen={};try{seen=JSON.parse(localStorage.getItem("bb-seen")||"{}")}catch(e){}
+function draw5(){
+  if($("#v5"))$("#v5").innerHTML=`<div class="top"><b>${ME.name}</b><span>${ME.sub} <a href="mailto:${ME.mail}">${ME.mail}</a></span></div>
+  ${P.map(p=>`<div class="bb${seen[p.id]?" seen":""}"><button class="t" data-id="${p.id}">${p.t}</button><img src="${p.cover}" alt=""><div class="m"><span class="sc">${p.f}</span> &middot; <i>${p.l}</i>${seen[p.id]?' <span class="seenl">&mdash; you&rsquo;ve opened this one</span>':""}</div></div>`).join("")}
+  <p class="foot">${ME.cred} Opened titles turn purple, like visited links. <button id="bb-reset">Reset</button></p>`;
+  document.querySelectorAll("#v5 button.t").forEach(b=>b.addEventListener("click",()=>{seen[b.dataset.id]=1;try{localStorage.setItem("bb-seen",JSON.stringify(seen))}catch(e){}openMsg(P.find(p=>p.id===b.dataset.id));draw5()}));
+  $("#bb-reset").addEventListener("click",()=>{seen={};try{localStorage.removeItem("bb-seen")}catch(e){}draw5()});
+}
+if($("#v5"))draw5();
+
+</script>
+</body>
+</html>
